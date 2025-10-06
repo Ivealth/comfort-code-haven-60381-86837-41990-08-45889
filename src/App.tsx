@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import FeatureCollaboration from "./pages/FeatureCollaboration";
 import FoodOrdering from "./pages/FoodOrdering";
+import Marketplace from "./pages/Marketplace";
 import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/signin" element={<Signin />} />
           <Route path="/feature/collaboration" element={<FeatureCollaboration />} />
           <Route path="/food-ordering" element={<FoodOrdering />} />
+          <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/account" element={<Account />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

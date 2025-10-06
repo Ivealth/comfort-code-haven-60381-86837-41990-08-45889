@@ -631,7 +631,10 @@ const FoodOrdering = () => {
               </div>
             </div>
           </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+          <button 
+            onClick={() => navigate("/marketplace")}
+            className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
+          >
             <ShoppingBag className="w-5 h-5" />
           </button>
           <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
