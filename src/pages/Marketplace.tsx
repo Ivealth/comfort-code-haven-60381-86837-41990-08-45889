@@ -245,7 +245,7 @@ const Marketplace = () => {
             </div>
           </button>
           <button 
-            onClick={() => navigate("/food-ordering")}
+            onClick={() => navigate("/food-ordering", { state: { skipLanding: true } })}
             className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
           >
             <Utensils className="w-5 h-5" />

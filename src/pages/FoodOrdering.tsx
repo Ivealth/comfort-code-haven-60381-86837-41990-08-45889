@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, Search, Heart, ChevronLeft, Clock, MapPin, Bell, User, Filter, Plus, Minus, ShoppingBag, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Star, Gift, Truck, Shield } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 type Screen = "landing" | "listing" | "detail";
 
 const FoodOrdering = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
-  const [currentScreen, setCurrentScreen] = useState<Screen>("landing");
+  const skipLanding = location.state?.skipLanding || false;
+  const [currentScreen, setCurrentScreen] = useState<Screen>(skipLanding ? "listing" : "landing");
   const [selectedCategory, setSelectedCategory] = useState("burger");
   const [favorites, setFavorites] = useState<number[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,11 +24,31 @@ const FoodOrdering = () => {
   const [quantity, setQuantity] = useState(1);
 
   const categories = [
-    { id: "pizza", name: "Pizza", icon: "🍕" },
-    { id: "burger", name: "Burger", icon: "🍔" },
-    { id: "chinese", name: "Chinese", icon: "🥡" },
-    { id: "chicken", name: "Chicken", icon: "🍗" },
-    { id: "fastfood", name: "Fast Food", icon: "🍟" }
+    { 
+      id: "pizza", 
+      name: "Pizza", 
+      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=100&h=100&fit=crop"
+    },
+    { 
+      id: "burger", 
+      name: "Burger", 
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=100&h=100&fit=crop"
+    },
+    { 
+      id: "chinese", 
+      name: "Chinese", 
+      image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=100&h=100&fit=crop"
+    },
+    { 
+      id: "chicken", 
+      name: "Chicken", 
+      image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=100&h=100&fit=crop"
+    },
+    { 
+      id: "fastfood", 
+      name: "Fast Food", 
+      image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=100&h=100&fit=crop"
+    }
   ];
 
   const foodItems = [
@@ -443,23 +465,6 @@ const FoodOrdering = () => {
           </Sheet>
         </div>
 
-        {/* Categories */}
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
-                selectedCategory === cat.id
-                  ? "bg-primary/10 text-primary"
-                  : "bg-background text-foreground"
-              }`}
-            >
-              <span className="text-lg">{cat.icon}</span>
-              <span>{cat.name}</span>
-            </button>
-          ))}
-        </div>
       </div>
 
       <main className="pb-4">
@@ -468,6 +473,32 @@ const FoodOrdering = () => {
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold text-foreground">Select by Category</h2>
             <button className="text-xs text-[hsl(20,100%,50%)] font-medium">See All</button>
+          </div>
+          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className="flex flex-col items-center gap-2 flex-shrink-0"
+              >
+                <div className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all ${
+                  selectedCategory === cat.id
+                    ? "border-[hsl(20,100%,50%)] shadow-lg"
+                    : "border-border"
+                }`}>
+                  <img 
+                    src={cat.image} 
+                    alt={cat.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className={`text-xs font-medium ${
+                  selectedCategory === cat.id
+                    ? "text-[hsl(20,100%,50%)]"
+                    : "text-foreground"
+                }`}>{cat.name}</span>
+              </button>
+            ))}
           </div>
         </div>
 
