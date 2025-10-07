@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, Search, Heart, ChevronLeft, Clock, MapPin, Bell, User, Filter, Plus, Minus, ShoppingBag, Flame } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Star, Gift, Truck, Shield } from "lucide-react";
@@ -22,6 +24,30 @@ const FoodOrdering = () => {
   const [selectedFood, setSelectedFood] = useState<number | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
+  const advertisements = [
+    {
+      id: 1,
+      title: "DashPass on Caviar",
+      description: "Free delivery, lower fees, 5%\ncashback on pickup",
+      buttonText: "Order Now",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop"
+    },
+    {
+      id: 2,
+      title: "Weekend Special",
+      description: "Get 20% off on all\norders above $30",
+      buttonText: "Claim Offer",
+      image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop"
+    },
+    {
+      id: 3,
+      title: "New Restaurant Alert",
+      description: "Check out new food spots\nnear you today",
+      buttonText: "Explore Now",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop"
+    }
+  ];
 
   const categories = [
     { 
@@ -380,23 +406,42 @@ const FoodOrdering = () => {
       </header>
 
       <div className="px-4 pt-4">
-        {/* Promotional Banner */}
-        <div className="bg-foreground text-background rounded-2xl p-4 mb-4 flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-bold mb-1">DashPass on Caviar</h3>
-            <p className="text-xs opacity-80 mb-3">Free delivery, lower fees, 5%<br />cashback on pickup</p>
-            <button className="bg-[hsl(20,100%,50%)] text-white px-4 py-1.5 rounded-full text-xs font-medium">
-              Order Now
-            </button>
-          </div>
-          <div className="w-24 h-24 rounded-lg overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop" 
-              alt="Featured food" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
+        {/* Promotional Banner Carousel */}
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+          className="mb-4"
+        >
+          <CarouselContent>
+            {advertisements.map((ad) => (
+              <CarouselItem key={ad.id}>
+                <div className="bg-foreground text-background rounded-2xl p-4 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold mb-1">{ad.title}</h3>
+                    <p className="text-xs opacity-80 mb-3 whitespace-pre-line">{ad.description}</p>
+                    <button className="bg-[hsl(20,100%,50%)] text-white px-4 py-1.5 rounded-full text-xs font-medium">
+                      {ad.buttonText}
+                    </button>
+                  </div>
+                  <div className="w-24 h-24 rounded-lg overflow-hidden">
+                    <img 
+                      src={ad.image} 
+                      alt={ad.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
 
         {/* Search Bar with Filter Icon */}
         <div className="relative mb-4">
@@ -474,25 +519,25 @@ const FoodOrdering = () => {
             <h2 className="text-sm font-semibold text-foreground">Select by Category</h2>
             <button className="text-xs text-[hsl(20,100%,50%)] font-medium">See All</button>
           </div>
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 flex-shrink-0 px-2 py-1.5 rounded-full transition-all ${
+                className={`flex items-center gap-1.5 flex-shrink-0 px-2 py-1 rounded-full transition-all ${
                   selectedCategory === cat.id
                     ? "bg-[hsl(20,100%,50%)] shadow-md"
                     : "bg-accent/10"
                 }`}
               >
-                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
                   <img 
                     src={cat.image} 
                     alt={cat.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className={`text-xs font-medium pr-2 ${
+                <span className={`text-xs font-medium pr-1.5 ${
                   selectedCategory === cat.id
                     ? "text-white"
                     : "text-foreground"
