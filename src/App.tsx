@@ -10,6 +10,7 @@ import FeatureCollaboration from "./pages/FeatureCollaboration";
 import FoodOrdering from "./pages/FoodOrdering";
 import Marketplace from "./pages/Marketplace";
 import Account from "./pages/Account";
+import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/food-ordering" element={<FoodOrdering />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

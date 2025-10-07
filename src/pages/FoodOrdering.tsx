@@ -474,27 +474,27 @@ const FoodOrdering = () => {
             <h2 className="text-sm font-semibold text-foreground">Select by Category</h2>
             <button className="text-xs text-[hsl(20,100%,50%)] font-medium">See All</button>
           </div>
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className="flex flex-col items-center gap-2 flex-shrink-0"
-              >
-                <div className={`w-16 h-16 rounded-full overflow-hidden border-2 transition-all ${
+                className={`flex items-center gap-2 flex-shrink-0 px-2 py-1.5 rounded-full transition-all ${
                   selectedCategory === cat.id
-                    ? "border-[hsl(20,100%,50%)] shadow-lg"
-                    : "border-border"
-                }`}>
+                    ? "bg-[hsl(20,100%,50%)] shadow-md"
+                    : "bg-accent/10"
+                }`}
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                   <img 
                     src={cat.image} 
                     alt={cat.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className={`text-xs font-medium ${
+                <span className={`text-xs font-medium pr-2 ${
                   selectedCategory === cat.id
-                    ? "text-[hsl(20,100%,50%)]"
+                    ? "text-white"
                     : "text-foreground"
                 }`}>{cat.name}</span>
               </button>
@@ -652,7 +652,10 @@ const FoodOrdering = () => {
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-6 py-3 shadow-lg">
         <div className="flex items-center justify-around max-w-md mx-auto">
-          <button className="flex flex-col items-center gap-1 text-primary">
+          <button 
+            onClick={() => navigate("/coming-soon")}
+            className="flex flex-col items-center gap-1 text-primary"
+          >
             <div className="w-5 h-5 flex items-center justify-center">
               <div className="grid grid-cols-2 gap-0.5">
                 <div className="w-1.5 h-1.5 bg-current rounded-sm"></div>

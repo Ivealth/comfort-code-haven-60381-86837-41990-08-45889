@@ -234,7 +234,10 @@ const Marketplace = () => {
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-6 py-3 shadow-lg">
         <div className="flex items-center justify-around max-w-md mx-auto">
-          <button className="flex flex-col items-center gap-1 text-primary">
+          <button 
+            onClick={() => navigate("/coming-soon")}
+            className="flex flex-col items-center gap-1 text-primary"
+          >
             <div className="w-5 h-5 flex items-center justify-center">
               <div className="grid grid-cols-2 gap-0.5">
                 <div className="w-1.5 h-1.5 bg-current rounded-sm"></div>
