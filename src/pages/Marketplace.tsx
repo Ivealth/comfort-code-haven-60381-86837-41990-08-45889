@@ -244,17 +244,17 @@ const Marketplace = () => {
               </div>
             </div>
           </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-          </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
-            <Search className="w-5 h-5" />
-          </button>
           <button 
             onClick={() => navigate("/food-ordering")}
             className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
           >
             <Utensils className="w-5 h-5" />
+          </button>
+          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+            <Search className="w-5 h-5" />
+          </button>
+          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+            <ShoppingCart className="w-5 h-5" />
           </button>
           <button 
             onClick={() => navigate("/account")}
