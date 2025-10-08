@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { Menu, Search, Heart, ChevronLeft, Clock, MapPin, Bell, User, Filter, Plus, Minus, ShoppingBag, Flame } from "lucide-react";
+import { Menu, Search, Heart, ChevronLeft, Clock, MapPin, Bell, User, Filter, Plus, Minus, ShoppingBag, Flame, X, Award, Tag, TrendingUp, Store, ArrowUpDown } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
 import { Star, Gift, Truck, Shield } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -24,6 +27,14 @@ const FoodOrdering = () => {
   const [selectedFood, setSelectedFood] = useState<number | null>(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [promotionsOpen, setPromotionsOpen] = useState(false);
+  const [foodTypeOpen, setFoodTypeOpen] = useState(false);
+  const [sortByOpen, setSortByOpen] = useState(false);
+  const [showTopRated, setShowTopRated] = useState(false);
+  const [showRestaurants, setShowRestaurants] = useState(false);
+  const [selectedPromotions, setSelectedPromotions] = useState<string[]>([]);
+  const [selectedFoodTypes, setSelectedFoodTypes] = useState<string[]>([]);
+  const [sortOption, setSortOption] = useState("recommended");
 
   const advertisements = [
     {
@@ -50,31 +61,46 @@ const FoodOrdering = () => {
   ];
 
   const categories = [
-    { 
-      id: "pizza", 
-      name: "Pizza", 
-      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=100&h=100&fit=crop"
-    },
-    { 
-      id: "burger", 
-      name: "Burger", 
-      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=100&h=100&fit=crop"
-    },
-    { 
-      id: "chinese", 
-      name: "Chinese", 
-      image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=100&h=100&fit=crop"
-    },
-    { 
-      id: "chicken", 
-      name: "Chicken", 
-      image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=100&h=100&fit=crop"
-    },
-    { 
-      id: "fastfood", 
-      name: "Fast Food", 
-      image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=100&h=100&fit=crop"
-    }
+    { id: "promotions", name: "Promotions", icon: Tag },
+    { id: "foodtype", name: "Food type", icon: Flame },
+    { id: "toprated", name: "Top rated", icon: TrendingUp },
+    { id: "restaurants", name: "Restaurants", icon: Store },
+    { id: "sortby", name: "Sort by", icon: ArrowUpDown }
+  ];
+
+  const promotionTypes = [
+    { id: "prime", name: "Prime promotions", icon: Award },
+    { id: "discount", name: "% discount", icon: Tag },
+    { id: "twoforone", name: "2 for 1", icon: Gift },
+    { id: "delivery", name: "Delivery discount", icon: Truck }
+  ];
+
+  const foodTypes = [
+    { id: "amala", name: "Amala", emoji: "🍲" },
+    { id: "bakery", name: "Bakery", emoji: "🧁" },
+    { id: "breakfast", name: "Breakfast", emoji: "☕" },
+    { id: "burgers", name: "Burgers", emoji: "🍔" },
+    { id: "chicken", name: "Chicken", emoji: "🍗" },
+    { id: "chinese", name: "Chinese", emoji: "🥟" },
+    { id: "grill", name: "Grill", emoji: "🍖" },
+    { id: "healthy", name: "Healthy", emoji: "🥗" },
+    { id: "icecream", name: "Ice cream", emoji: "🍦" },
+    { id: "indian", name: "Indian", emoji: "🍛" },
+    { id: "international", name: "International", emoji: "🌍" },
+    { id: "jollof", name: "Jollof", emoji: "🍚" },
+    { id: "localfood", name: "Local food", emoji: "🍱" },
+    { id: "pasta", name: "Pasta", emoji: "🍝" },
+    { id: "pizza", name: "Pizza", emoji: "🍕" },
+    { id: "premium", name: "Premium", emoji: "🍽️" },
+    { id: "seafood", name: "Seafood", emoji: "🐟" },
+    { id: "shawarma", name: "Shawarma", emoji: "🌯" }
+  ];
+
+  const sortOptions = [
+    { id: "recommended", name: "Recommended", icon: Star },
+    { id: "nearme", name: "Near me", icon: MapPin },
+    { id: "ratings", name: "Ratings", icon: TrendingUp },
+    { id: "deliveryfee", name: "Delivery fee", icon: Truck }
   ];
 
   const foodItems = [
@@ -176,6 +202,42 @@ const FoodOrdering = () => {
 
   const toggleFavorite = (id: number) => {
     setFavorites(prev => 
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    
+    switch(categoryId) {
+      case "promotions":
+        setPromotionsOpen(true);
+        break;
+      case "foodtype":
+        setFoodTypeOpen(true);
+        break;
+      case "toprated":
+        setShowTopRated(true);
+        setShowRestaurants(false);
+        break;
+      case "restaurants":
+        setShowRestaurants(true);
+        setShowTopRated(false);
+        break;
+      case "sortby":
+        setSortByOpen(true);
+        break;
+    }
+  };
+
+  const togglePromotion = (id: string) => {
+    setSelectedPromotions(prev =>
+      prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
+    );
+  };
+
+  const toggleFoodType = (id: string) => {
+    setSelectedFoodTypes(prev =>
       prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
     );
   };
@@ -513,39 +575,163 @@ const FoodOrdering = () => {
       </div>
 
       <main className="pb-4">
-        {/* Select by Category */}
+        {/* Category Filters */}
         <div className="mb-6 px-4">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold text-foreground">Select by Category</h2>
-            <button className="text-xs text-[hsl(20,100%,50%)] font-medium">See All</button>
-          </div>
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 flex-shrink-0 px-2 py-1 rounded-full transition-all ${
-                  selectedCategory === cat.id
-                    ? "bg-[hsl(20,100%,50%)] shadow-md"
-                    : "bg-accent/10"
-                }`}
-              >
-                <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
-                  <img 
-                    src={cat.image} 
-                    alt={cat.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className={`text-xs font-medium pr-1.5 ${
-                  selectedCategory === cat.id
-                    ? "text-white"
-                    : "text-foreground"
-                }`}>{cat.name}</span>
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => handleCategoryClick(cat.id)}
+                  className={`flex items-center gap-1.5 flex-shrink-0 px-3 py-1.5 rounded-full transition-all border ${
+                    selectedCategory === cat.id
+                      ? "bg-foreground text-background border-foreground"
+                      : "bg-background text-foreground border-border"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span className="text-xs font-medium">{cat.name}</span>
+                  {cat.id === "sortby" && (
+                    <ChevronLeft className="w-3 h-3 rotate-[-90deg]" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
+
+        {/* Promotions Drawer */}
+        <Drawer open={promotionsOpen} onOpenChange={setPromotionsOpen}>
+          <DrawerContent className="max-h-[85vh]">
+            <DrawerHeader className="text-left border-b pb-4">
+              <div className="flex items-center justify-between">
+                <DrawerTitle className="text-2xl font-bold">Promotion type</DrawerTitle>
+                <DrawerClose asChild>
+                  <button className="p-2 hover:bg-accent rounded-full">
+                    <X className="w-5 h-5" />
+                  </button>
+                </DrawerClose>
+              </div>
+            </DrawerHeader>
+            <div className="p-6 space-y-4">
+              {promotionTypes.map((promo) => {
+                const Icon = promo.icon;
+                return (
+                  <label
+                    key={promo.id}
+                    className="flex items-center justify-between p-4 rounded-lg hover:bg-accent/5 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Icon className="w-5 h-5 text-foreground" />
+                      <span className="text-base font-medium text-foreground">{promo.name}</span>
+                    </div>
+                    <Checkbox
+                      checked={selectedPromotions.includes(promo.id)}
+                      onCheckedChange={() => togglePromotion(promo.id)}
+                      className="w-6 h-6"
+                    />
+                  </label>
+                );
+              })}
+            </div>
+            <div className="p-6 pt-0">
+              <Button
+                onClick={() => setPromotionsOpen(false)}
+                className="w-full h-14 text-base rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white font-semibold"
+              >
+                Show results
+              </Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Food Type Drawer */}
+        <Drawer open={foodTypeOpen} onOpenChange={setFoodTypeOpen}>
+          <DrawerContent className="max-h-[85vh]">
+            <DrawerHeader className="text-left border-b pb-4">
+              <div className="flex items-center justify-between">
+                <DrawerTitle className="text-2xl font-bold">Food type</DrawerTitle>
+                <DrawerClose asChild>
+                  <button className="p-2 hover:bg-accent rounded-full">
+                    <X className="w-5 h-5" />
+                  </button>
+                </DrawerClose>
+              </div>
+            </DrawerHeader>
+            <div className="p-6 overflow-y-auto">
+              <div className="grid grid-cols-3 gap-4">
+                {foodTypes.map((food) => (
+                  <button
+                    key={food.id}
+                    onClick={() => toggleFoodType(food.id)}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
+                      selectedFoodTypes.includes(food.id)
+                        ? "bg-primary/10 border-2 border-primary"
+                        : "bg-accent/5 border-2 border-transparent"
+                    }`}
+                  >
+                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center text-3xl">
+                      {food.emoji}
+                    </div>
+                    <span className="text-sm font-medium text-foreground text-center">{food.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="p-6 pt-4 border-t">
+              <Button
+                onClick={() => setFoodTypeOpen(false)}
+                className="w-full h-14 text-base rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white font-semibold"
+              >
+                Show results
+              </Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Sort By Drawer */}
+        <Drawer open={sortByOpen} onOpenChange={setSortByOpen}>
+          <DrawerContent className="max-h-[70vh]">
+            <DrawerHeader className="text-left border-b pb-4">
+              <div className="flex items-center justify-between">
+                <DrawerTitle className="text-2xl font-bold">Sort by</DrawerTitle>
+                <DrawerClose asChild>
+                  <button className="p-2 hover:bg-accent rounded-full">
+                    <X className="w-5 h-5" />
+                  </button>
+                </DrawerClose>
+              </div>
+            </DrawerHeader>
+            <div className="p-6">
+              <RadioGroup value={sortOption} onValueChange={setSortOption} className="space-y-4">
+                {sortOptions.map((option) => {
+                  const Icon = option.icon;
+                  return (
+                    <label
+                      key={option.id}
+                      className="flex items-center justify-between p-4 rounded-lg hover:bg-accent/5 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="w-5 h-5 text-foreground" />
+                        <span className="text-base font-medium text-foreground">{option.name}</span>
+                      </div>
+                      <RadioGroupItem value={option.id} className="w-6 h-6" />
+                    </label>
+                  );
+                })}
+              </RadioGroup>
+            </div>
+            <div className="p-6 pt-0">
+              <Button
+                onClick={() => setSortByOpen(false)}
+                className="w-full h-14 text-base rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white font-semibold"
+              >
+                Show results
+              </Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
 
         {/* Fastest Near You - Horizontal Scroll */}
         <div className="mb-6">
