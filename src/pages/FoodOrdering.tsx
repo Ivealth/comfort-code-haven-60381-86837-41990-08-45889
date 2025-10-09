@@ -577,7 +577,7 @@ const FoodOrdering = () => {
       <main className="pb-4">
         {/* Category Filters */}
         <div className="mb-6 px-4">
-          <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
             {categories.map((cat) => {
               const Icon = cat.icon;
               const isActive = 
@@ -591,11 +591,11 @@ const FoodOrdering = () => {
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryClick(cat.id)}
-                  className="flex items-center gap-1 flex-shrink-0 px-2.5 py-1 rounded-full transition-all bg-[#D4AF37] text-black hover:bg-[#C5A028]"
+                  className="flex items-center gap-1.5 flex-shrink-0 px-3 py-1.5 rounded-full transition-all bg-[#F5A623] text-black hover:bg-[#E09612]"
                 >
-                  <Icon className="w-3 h-3" />
-                  <span className="text-[11px] font-medium">{cat.name}</span>
-                  {isActive && <X className="w-2.5 h-2.5" />}
+                  <Icon className="w-3.5 h-3.5" />
+                  <span className="text-sm font-medium">{cat.name}</span>
+                  {isActive && <X className="w-3 h-3" />}
                 </button>
               );
             })}
@@ -604,41 +604,42 @@ const FoodOrdering = () => {
 
         {/* Promotions Drawer */}
         <Drawer open={promotionsOpen} onOpenChange={setPromotionsOpen}>
-          <DrawerContent className="max-h-[85vh] rounded-t-[32px]">
-            <DrawerHeader className="text-left pb-2">
+          <DrawerContent className="max-h-[85vh] rounded-t-[40px]">
+            <DrawerHeader className="text-left pb-4 pt-6">
               <div className="flex items-center justify-between">
-                <DrawerTitle className="text-xl">Promotion type</DrawerTitle>
+                <DrawerTitle className="text-2xl font-bold">Promotion type</DrawerTitle>
                 <DrawerClose asChild>
-                  <button className="p-2 hover:bg-accent rounded-full">
+                  <button className="w-10 h-10 flex items-center justify-center hover:bg-muted rounded-full bg-muted/50">
                     <X className="w-5 h-5" />
                   </button>
                 </DrawerClose>
               </div>
             </DrawerHeader>
-            <div className="px-4 pb-6 space-y-1">
+            <div className="px-6 pb-8 space-y-0">
               {promotionTypes.map((promo) => {
                 const Icon = promo.icon;
                 return (
                   <label
                     key={promo.id}
-                    className="flex items-center justify-between py-3 border-b border-border/40 cursor-pointer"
+                    className="flex items-center justify-between py-4 border-b border-border/20 cursor-pointer last:border-b-0"
                   >
-                    <div className="flex items-center gap-3">
-                      <Icon className="w-5 h-5 text-foreground" />
-                      <span className="text-sm">{promo.name}</span>
+                    <div className="flex items-center gap-4">
+                      <Icon className="w-6 h-6 text-foreground" />
+                      <span className="text-base font-medium">{promo.name}</span>
                     </div>
                     <Checkbox
                       checked={selectedPromotions.includes(promo.id)}
                       onCheckedChange={() => togglePromotion(promo.id)}
+                      className="w-6 h-6 rounded-md"
                     />
                   </label>
                 );
               })}
             </div>
-            <div className="px-4 pb-6">
+            <div className="px-6 pb-8">
               <Button
                 onClick={() => setPromotionsOpen(false)}
-                className="w-full h-12 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white"
+                className="w-full h-14 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white text-base font-semibold"
               >
                 Show results
               </Button>
@@ -648,41 +649,50 @@ const FoodOrdering = () => {
 
         {/* Food Type Drawer */}
         <Drawer open={foodTypeOpen} onOpenChange={setFoodTypeOpen}>
-          <DrawerContent className="max-h-[85vh] rounded-t-[32px]">
-            <DrawerHeader className="text-left pb-2">
+          <DrawerContent className="max-h-[85vh] rounded-t-[40px]">
+            <DrawerHeader className="text-left pb-4 pt-6">
               <div className="flex items-center justify-between">
-                <DrawerTitle className="text-xl">Food type</DrawerTitle>
+                <DrawerTitle className="text-2xl font-bold">Food type</DrawerTitle>
                 <DrawerClose asChild>
-                  <button className="p-2 hover:bg-accent rounded-full">
+                  <button className="w-10 h-10 flex items-center justify-center hover:bg-muted rounded-full bg-muted/50">
                     <X className="w-5 h-5" />
                   </button>
                 </DrawerClose>
               </div>
             </DrawerHeader>
-            <div className="px-4 overflow-y-auto">
-              <div className="grid grid-cols-3 gap-3">
+            <div className="px-6 overflow-y-auto pb-4">
+              <div className="grid grid-cols-3 gap-4">
                 {foodTypes.map((food) => (
                   <button
                     key={food.id}
                     onClick={() => toggleFoodType(food.id)}
-                    className={`flex flex-col items-center gap-2 p-3 rounded-2xl transition-all ${
-                      selectedFoodTypes.includes(food.id)
-                        ? "bg-primary/10 ring-2 ring-primary"
-                        : "bg-muted/50 hover:bg-muted"
-                    }`}
+                    className="flex flex-col items-center gap-2 group"
                   >
-                    <div className="text-3xl">
-                      {food.emoji}
+                    <div className="relative">
+                      <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
+                        selectedFoodTypes.includes(food.id)
+                          ? "bg-[#F5A623]"
+                          : "bg-muted/50"
+                      }`}>
+                        <span className="text-3xl">{food.emoji}</span>
+                      </div>
+                      {selectedFoodTypes.includes(food.id) && (
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      )}
                     </div>
-                    <span className="text-xs font-medium text-center">{food.name}</span>
+                    <span className="text-sm font-medium text-center">{food.name}</span>
                   </button>
                 ))}
               </div>
             </div>
-            <div className="px-4 pb-6 pt-4">
+            <div className="px-6 pb-8 pt-4">
               <Button
                 onClick={() => setFoodTypeOpen(false)}
-                className="w-full h-12 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white"
+                className="w-full h-14 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white text-base font-semibold"
               >
                 Show results
               </Button>
@@ -692,40 +702,40 @@ const FoodOrdering = () => {
 
         {/* Sort By Drawer */}
         <Drawer open={sortByOpen} onOpenChange={setSortByOpen}>
-          <DrawerContent className="max-h-[70vh] rounded-t-[32px]">
-            <DrawerHeader className="text-left pb-2">
+          <DrawerContent className="max-h-[70vh] rounded-t-[40px]">
+            <DrawerHeader className="text-left pb-4 pt-6">
               <div className="flex items-center justify-between">
-                <DrawerTitle className="text-xl">Sort by</DrawerTitle>
+                <DrawerTitle className="text-2xl font-bold">Sort by</DrawerTitle>
                 <DrawerClose asChild>
-                  <button className="p-2 hover:bg-accent rounded-full">
+                  <button className="w-10 h-10 flex items-center justify-center hover:bg-muted rounded-full bg-muted/50">
                     <X className="w-5 h-5" />
                   </button>
                 </DrawerClose>
               </div>
             </DrawerHeader>
-            <div className="px-4">
+            <div className="px-6 pb-8">
               <RadioGroup value={sortOption} onValueChange={setSortOption}>
                 {sortOptions.map((option) => {
                   const Icon = option.icon;
                   return (
                     <label
                       key={option.id}
-                      className="flex items-center justify-between py-3 border-b border-border/40 cursor-pointer"
+                      className="flex items-center justify-between py-4 border-b border-border/20 cursor-pointer last:border-b-0"
                     >
-                      <div className="flex items-center gap-3">
-                        <Icon className="w-5 h-5 text-foreground" />
-                        <span className="text-sm">{option.name}</span>
+                      <div className="flex items-center gap-4">
+                        <Icon className="w-6 h-6 text-foreground" />
+                        <span className="text-base font-medium">{option.name}</span>
                       </div>
-                      <RadioGroupItem value={option.id} />
+                      <RadioGroupItem value={option.id} className="w-6 h-6" />
                     </label>
                   );
                 })}
               </RadioGroup>
             </div>
-            <div className="px-4 pb-6 pt-4">
+            <div className="px-6 pb-8">
               <Button
                 onClick={() => setSortByOpen(false)}
-                className="w-full h-12 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white"
+                className="w-full h-14 rounded-full bg-[#00A896] hover:bg-[#008c7a] text-white text-base font-semibold"
               >
                 Show results
               </Button>
