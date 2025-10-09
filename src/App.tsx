@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import FeatureCollaboration from "./pages/FeatureCollaboration";
 import FoodOrdering from "./pages/FoodOrdering";
+import Restaurants from "./pages/Restaurants";
 import Marketplace from "./pages/Marketplace";
 import Account from "./pages/Account";
 import ComingSoon from "./pages/ComingSoon";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/signin" element={<Signin />} />
           <Route path="/feature/collaboration" element={<FeatureCollaboration />} />
           <Route path="/food-ordering" element={<FoodOrdering />} />
+          <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/account" element={<Account />} />
           <Route path="/coming-soon" element={<ComingSoon />} />

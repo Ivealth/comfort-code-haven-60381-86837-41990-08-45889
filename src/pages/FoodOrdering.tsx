@@ -221,8 +221,7 @@ const FoodOrdering = () => {
         setShowRestaurants(false);
         break;
       case "restaurants":
-        setShowRestaurants(true);
-        setShowTopRated(false);
+        navigate("/restaurants");
         break;
       case "sortby":
         setSortByOpen(true);
