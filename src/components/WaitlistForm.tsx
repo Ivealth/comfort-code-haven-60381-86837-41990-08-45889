@@ -40,18 +40,18 @@ const WaitlistForm = () => {
   };
 
   return (
-    <section id="waitlist" className="mt-12">
-      <div className="bg-card rounded-2xl p-8 md:p-10 shadow-blue-glow border border-border/30">
-        <div className="mb-6 md:mb-8 text-center">
-          <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary tracking-tight">Join the Waitlist</h3>
-          <p className="mt-3 text-base md:text-lg text-muted-foreground leading-relaxed">
+    <section id="waitlist" className="mt-6">
+      <div className="bg-card rounded-2xl p-6 md:p-8 shadow-blue-glow">
+        <div className="mb-4 md:mb-5 text-center">
+          <h3 className="text-xl md:text-2xl font-heading font-bold text-primary">Join the Waitlist</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
             Be among the first to experience the future of campus collaboration
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
           <div>
-            <label htmlFor="email" className="text-sm md:text-base text-foreground mb-2 block font-semibold">
+            <label htmlFor="email" className="text-sm text-foreground mb-2 block font-medium">
               Email
             </label>
             <input
@@ -61,12 +61,12 @@ const WaitlistForm = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@school.edu"
-              className="w-full text-base font-body px-5 py-3.5 rounded-xl border-2 border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
             />
           </div>
 
           <div>
-            <label htmlFor="university" className="text-sm md:text-base text-foreground mb-2 block font-semibold">
+            <label htmlFor="university" className="text-sm text-foreground mb-2 block font-medium">
               University
             </label>
             <input
@@ -76,41 +76,41 @@ const WaitlistForm = () => {
               value={university}
               onChange={(e) => setUniversity(e.target.value)}
               placeholder="Your University"
-              className="w-full text-base font-body px-5 py-3.5 rounded-xl border-2 border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
             />
           </div>
 
           <div>
-            <label htmlFor="pain" className="text-sm md:text-base text-foreground mb-2 block font-semibold">
+            <label htmlFor="pain" className="text-sm text-foreground mb-2 block font-medium">
               What's your biggest campus headache?
             </label>
             <textarea
               id="pain"
-              rows={4}
+              rows={3}
               required
               value={painPoint}
               onChange={(e) => setPainPoint(e.target.value)}
               placeholder="Tell us what challenges you're facing..."
-              className="w-full text-base font-body px-5 py-3.5 rounded-xl border-2 border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none transition-all"
+              className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
             />
           </div>
 
           <div>
             <button
               type="submit"
-              className="w-full py-4 rounded-xl text-primary-foreground bg-primary font-bold text-base hover:bg-primary/90 transition-all duration-200 hover:shadow-lg"
+              className="w-full py-3 rounded-xl text-primary-foreground bg-primary font-semibold text-sm hover:opacity-90 transition-opacity"
             >
               Sign Me Up
             </button>
           </div>
 
-          <div className="text-base text-center text-muted-foreground">
+          <div className="text-sm text-center text-muted-foreground">
             Spots filling fast – only{' '}
-            <span className="font-bold text-foreground">{spotsLeft}</span> left!
+            <span className="font-semibold text-foreground">{spotsLeft}</span> left!
           </div>
 
-          {error && <div className="text-base text-destructive text-center font-medium">{error}</div>}
-          {success && <div className="text-base text-green-600 text-center font-semibold">{success}</div>}
+          {error && <div className="text-sm text-destructive text-center">{error}</div>}
+          {success && <div className="text-sm text-green-600 text-center">{success}</div>}
         </form>
       </div>
     </section>

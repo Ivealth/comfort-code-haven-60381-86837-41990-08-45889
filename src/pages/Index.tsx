@@ -29,24 +29,24 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground font-body flex flex-col">
       <Header scrolled={scrolled} onSignupClick={() => setWelcomeModalOpen(true)} />
 
-      <main className="px-5 md:px-8 lg:px-12 flex-1 pt-20">
+      <main className="px-5 flex-1 pt-20">
         <Hero />
         <CampusNeeds />
         <Features />
         <WaitlistForm />
       </main>
 
-      <div className="w-full px-5 py-8 flex justify-center">
+      <div className="w-full px-5 py-6 flex justify-center">
         <button
           onClick={handleAffiliateClick}
-          className="px-6 py-2.5 rounded-full text-base font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-all duration-200 hover:shadow-lg"
+          className="px-4 py-1.5 rounded-md text-sm font-medium bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
         >
           Apply as Affiliate
         </button>
       </div>
 
-      <footer className="w-full bg-primary text-white text-center text-sm py-8 mt-12 border-t border-border/20">
-        <p className="font-medium">© 2025 Ivealth LTD – Empowering the next gen.</p>
+      <footer className="w-full bg-black text-white text-center text-xs py-6 mt-10">
+        <p>© 2025 Ivealth LTD – Empowering the next gen.</p>
       </footer>
 
       <WelcomeModal 

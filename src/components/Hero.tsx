@@ -9,41 +9,41 @@ const Hero = () => {
   };
 
   return (
-    <section className="mt-6 bg-card rounded-2xl p-8 md:p-10 shadow-blue-glow">
+    <section className="mt-6 bg-card rounded-2xl p-6 shadow-blue-glow">
       <div className="text-center">
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-primary leading-[1.1] tracking-tight">
+        <h1 className="text-2xl md:text-4xl font-heading font-bold text-primary leading-tight">
           Streamline Your Team,
           <br />
           Supercharge Your Workflow
         </h1>
-        <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-xl mx-auto">
           All-in-one platform to plan, collaborate, and deliver — faster and smarter.
         </p>
 
-        <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
-          <button
+        <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
+          <button 
             onClick={() => navigate('/feature/collaboration')}
-            className="px-6 py-3 rounded-full border-2 border-secondary text-secondary text-base font-semibold hover:bg-secondary hover:text-secondary-foreground transition-all duration-200 hover:shadow-lg">
+            className="px-4 py-2 rounded-full border-2 border-secondary text-secondary text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">
             Learn more
           </button>
           <button
             onClick={scrollToWaitlist}
-            className="px-7 py-3 rounded-full bg-primary text-primary-foreground text-base font-semibold hover:bg-primary/90 transition-all duration-200 hover:shadow-lg"
+            className="px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Get early access
           </button>
         </div>
       </div>
 
-      <div className="mt-10 overflow-x-auto py-6">
-        <div className="flex gap-4 items-end px-3 pb-1">
+      <div className="mt-6 overflow-x-auto py-4">
+        <div className="flex gap-3 items-end px-3 pb-1">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div
               key={i}
-              className="w-28 md:w-40 flex-shrink-0 rounded-2xl bg-card shadow-lg overflow-hidden border border-border/50"
+              className="w-24 md:w-32 flex-shrink-0 rounded-xl bg-card shadow-md overflow-hidden"
               style={{ transform: `rotate(${(i - 3) * 2}deg)` }}
             >
-              <div className="w-full h-32 md:h-40 bg-gradient-to-br from-primary/15 via-secondary/10 to-accent/15" />
+              <div className="w-full h-24 bg-gradient-to-br from-primary/20 to-secondary/20" />
             </div>
           ))}
         </div>
