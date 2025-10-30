@@ -15,14 +15,14 @@ const Features = () => {
   ];
 
   return (
-    <section className="mt-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <section className="mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {features.map((feature) => (
-          <div key={feature.title} className="bg-card rounded-xl p-5 shadow-sm text-center">
-            <h3 className="font-heading text-primary text-lg font-bold">
+          <div key={feature.title} className="bg-card rounded-2xl p-7 shadow-md border border-border/50 text-center hover:shadow-lg transition-shadow duration-200">
+            <h3 className="font-heading text-primary text-xl font-bold tracking-tight">
               {feature.title}
             </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-3 text-base text-muted-foreground leading-relaxed">
               {feature.description}
             </p>
           </div>
