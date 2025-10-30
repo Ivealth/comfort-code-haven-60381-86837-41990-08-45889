@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import welcomeHero from "@/assets/welcome-hero.jpg";
 
 interface WelcomeModalProps {
   open: boolean;
@@ -47,9 +46,9 @@ const WelcomeModal = ({ open, onOpenChange }: WelcomeModalProps) => {
         {/* Hero Image Section with Curved Bottom */}
         <div className="relative h-72 overflow-visible rounded-t-3xl">
           <div className="relative h-full overflow-hidden" style={{ clipPath: 'ellipse(100% 100% at 50% 0%)' }}>
-            <img 
-              src={welcomeHero} 
-              alt="Trovii Housing" 
+            <img
+              src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Trovii Housing"
               className="w-full h-full object-cover"
             />
             {/* Logo Overlay */}
