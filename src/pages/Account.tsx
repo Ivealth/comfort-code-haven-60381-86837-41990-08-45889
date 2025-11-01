@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Profile {
+  username: string;
   full_name: string;
   email: string;
   phone_number: string | null;
+  profile_picture_url: string | null;
 }
 
 const Account = () => {
@@ -56,10 +59,9 @@ const Account = () => {
   };
 
   const menuItems = [
-    { icon: User, label: "Edit Profile", action: () => navigate('/edit-profile') },
+    { icon: Settings, label: "Settings", action: () => navigate('/settings') },
     { icon: MapPin, label: "Delivery Address", action: () => toast("Coming soon") },
     { icon: CreditCard, label: "Payment Methods", action: () => toast("Coming soon") },
-    { icon: Settings, label: "Settings", action: () => toast("Coming soon") },
   ];
 
   if (loading) {
@@ -88,12 +90,15 @@ const Account = () => {
 
       {/* Profile Section */}
       <div className="px-4 pt-6 pb-4">
-        <div className="flex items-center gap-4 p-4 bg-card rounded-2xl border border-border">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-            <User className="w-8 h-8 text-primary" />
-          </div>
+        <div className="flex items-center gap-4 p-4 bg-card rounded-2xl border border-border shadow-sm">
+          <Avatar className="w-20 h-20 border-2 border-primary/20">
+            <AvatarImage src={profile?.profile_picture_url || ''} alt={profile?.username || 'User'} />
+            <AvatarFallback className="bg-gradient-to-br from-primary to-primary/60 text-primary-foreground text-2xl font-bold">
+              {profile?.username?.charAt(0).toUpperCase() || 'U'}
+            </AvatarFallback>
+          </Avatar>
           <div className="flex-1">
-            <h2 className="text-lg font-bold text-foreground">{profile?.full_name || 'User'}</h2>
+            <h2 className="text-lg font-bold text-foreground">@{profile?.username || 'user'}</h2>
             <p className="text-sm text-muted-foreground">{profile?.email || ''}</p>
           </div>
         </div>

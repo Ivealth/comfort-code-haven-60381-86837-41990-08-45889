@@ -21,7 +21,9 @@ export type Database = {
           full_name: string
           id: string
           phone_number: string | null
+          profile_picture_url: string | null
           updated_at: string
+          username: string
         }
         Insert: {
           created_at?: string
@@ -29,7 +31,9 @@ export type Database = {
           full_name: string
           id: string
           phone_number?: string | null
+          profile_picture_url?: string | null
           updated_at?: string
+          username: string
         }
         Update: {
           created_at?: string
@@ -37,7 +41,9 @@ export type Database = {
           full_name?: string
           id?: string
           phone_number?: string | null
+          profile_picture_url?: string | null
           updated_at?: string
+          username?: string
         }
         Relationships: []
       }
