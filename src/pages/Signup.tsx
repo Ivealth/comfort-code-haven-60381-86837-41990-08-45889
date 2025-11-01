@@ -1,6 +1,8 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,7 +17,17 @@ const Signup = () => {
     return v.includes('@') && v.includes('.');
   };
 
-  const handleSignupNext = (e: FormEvent) => {
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate('/food-ordering');
+      }
+    };
+    checkUser();
+  }, [navigate]);
+
+  const handleSignupNext = async (e: FormEvent) => {
     e.preventDefault();
     setSignupError("");
 
@@ -36,11 +48,34 @@ const Signup = () => {
       return;
     }
 
-    // Demo success
-    setSignupError('');
-    setTimeout(() => {
-      navigate('/food-ordering');
-    }, 500);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: signupEmail,
+        password: signupPassword,
+        options: {
+          data: {
+            full_name: signupName
+          },
+          emailRedirectTo: `${window.location.origin}/`
+        }
+      });
+
+      if (error) {
+        if (error.message.includes('already registered')) {
+          setSignupError('This email is already registered. Please sign in instead.');
+        } else {
+          setSignupError(error.message);
+        }
+        return;
+      }
+
+      if (data.user) {
+        toast.success('Account created successfully!');
+        navigate('/food-ordering');
+      }
+    } catch (error: any) {
+      setSignupError('An error occurred during signup. Please try again.');
+    }
   };
 
   return (

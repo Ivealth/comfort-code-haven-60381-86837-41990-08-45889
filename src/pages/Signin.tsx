@@ -1,6 +1,8 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -13,7 +15,17 @@ const Signin = () => {
     return v.includes('@') && v.includes('.');
   };
 
-  const handleSigninSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate('/food-ordering');
+      }
+    };
+    checkUser();
+  }, [navigate]);
+
+  const handleSigninSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSigninError("");
 
@@ -26,11 +38,28 @@ const Signin = () => {
       return;
     }
 
-    // Demo success
-    setSigninError('');
-    setTimeout(() => {
-      navigate('/');
-    }, 500);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: signinEmail,
+        password: signinPassword
+      });
+
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          setSigninError('Invalid email or password. Please try again.');
+        } else {
+          setSigninError(error.message);
+        }
+        return;
+      }
+
+      if (data.session) {
+        toast.success('Signed in successfully!');
+        navigate('/food-ordering');
+      }
+    } catch (error: any) {
+      setSigninError('An error occurred during sign in. Please try again.');
+    }
   };
 
   return (

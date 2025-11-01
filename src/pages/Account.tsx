@@ -1,15 +1,74 @@
 import { ChevronLeft, User, Mail, Phone, MapPin, CreditCard, Settings, LogOut, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+interface Profile {
+  full_name: string;
+  email: string;
+  phone_number: string | null;
+}
 
 const Account = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    checkAuthAndFetchProfile();
+  }, []);
+
+  const checkAuthAndFetchProfile = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        navigate('/signin');
+        return;
+      }
+
+      const { data: profileData, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (error) throw error;
+
+      setProfile(profileData);
+    } catch (error: any) {
+      toast.error('Error loading profile');
+      navigate('/signin');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success('Logged out successfully');
+      navigate('/');
+    } catch (error: any) {
+      toast.error('Error logging out');
+    }
+  };
 
   const menuItems = [
-    { icon: User, label: "Edit Profile", action: () => {} },
-    { icon: MapPin, label: "Delivery Address", action: () => {} },
-    { icon: CreditCard, label: "Payment Methods", action: () => {} },
-    { icon: Settings, label: "Settings", action: () => {} },
+    { icon: User, label: "Edit Profile", action: () => navigate('/edit-profile') },
+    { icon: MapPin, label: "Delivery Address", action: () => toast("Coming soon") },
+    { icon: CreditCard, label: "Payment Methods", action: () => toast("Coming soon") },
+    { icon: Settings, label: "Settings", action: () => toast("Coming soon") },
   ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-20">
@@ -34,8 +93,8 @@ const Account = () => {
             <User className="w-8 h-8 text-primary" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-bold text-foreground">John Doe</h2>
-            <p className="text-sm text-muted-foreground">john.doe@example.com</p>
+            <h2 className="text-lg font-bold text-foreground">{profile?.full_name || 'User'}</h2>
+            <p className="text-sm text-muted-foreground">{profile?.email || ''}</p>
           </div>
         </div>
       </div>
@@ -47,16 +106,18 @@ const Account = () => {
             <Mail className="w-5 h-5 text-primary" />
             <div>
               <p className="text-xs text-muted-foreground">Email</p>
-              <p className="text-sm text-foreground">john.doe@example.com</p>
+              <p className="text-sm text-foreground">{profile?.email || 'Not provided'}</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border">
-            <Phone className="w-5 h-5 text-primary" />
-            <div>
-              <p className="text-xs text-muted-foreground">Phone</p>
-              <p className="text-sm text-foreground">+1 (555) 123-4567</p>
+          {profile?.phone_number && (
+            <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border">
+              <Phone className="w-5 h-5 text-primary" />
+              <div>
+                <p className="text-xs text-muted-foreground">Phone</p>
+                <p className="text-sm text-foreground">{profile.phone_number}</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -81,7 +142,10 @@ const Account = () => {
 
       {/* Logout Button */}
       <div className="px-4">
-        <button className="w-full flex items-center justify-center gap-2 p-4 bg-destructive/10 text-destructive rounded-xl hover:bg-destructive/20 transition-colors">
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center justify-center gap-2 p-4 bg-destructive/10 text-destructive rounded-xl hover:bg-destructive/20 transition-colors"
+        >
           <LogOut className="w-5 h-5" />
           <span className="text-sm font-medium">Log Out</span>
         </button>
