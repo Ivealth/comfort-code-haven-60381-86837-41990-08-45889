@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, Camera, User, Mail, Phone, Save } from "lucide-react";
+import { ChevronLeft, Camera, User, Mail, Phone, Save, MapPin, CreditCard, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -78,7 +78,7 @@ const Settings = () => {
       };
       reader.readAsDataURL(file);
 
-      toast.success('Image uploaded successfully');
+      toast.success('Image uploaded successfully', { duration: 800 });
     } catch (error: any) {
       toast.error('Error uploading image');
       console.error('Upload error:', error);
@@ -131,9 +131,9 @@ const Settings = () => {
           email: email
         });
         if (authError) throw authError;
-        toast.success('Profile updated! Please check your new email to confirm the change.');
+        toast.success('Profile updated! Please check your new email to confirm the change.', { duration: 800 });
       } else {
-        toast.success('Profile updated successfully!');
+        toast.success('Profile updated successfully!', { duration: 800 });
       }
 
       navigate('/account');
@@ -270,6 +270,30 @@ const Settings = () => {
           <Save className="w-5 h-5" />
           {saving ? 'Saving...' : 'Save Changes'}
         </button>
+
+        {/* Additional Options */}
+        <div className="mt-6 bg-card rounded-2xl border border-border overflow-hidden">
+          <button
+            onClick={() => toast("Coming soon", { duration: 800 })}
+            className="w-full flex items-center justify-between p-4 hover:bg-accent/10 transition-colors border-b border-border"
+          >
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-primary" />
+              <span className="text-sm text-foreground">Delivery Address</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+          </button>
+          <button
+            onClick={() => toast("Coming soon", { duration: 800 })}
+            className="w-full flex items-center justify-between p-4 hover:bg-accent/10 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <CreditCard className="w-5 h-5 text-primary" />
+              <span className="text-sm text-foreground">Payment Methods</span>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+          </button>
+        </div>
       </div>
     </div>
   );
