@@ -76,7 +76,7 @@ const Account = () => {
       <header className="sticky top-0 z-50 bg-card border-b border-border p-4">
         <div className="flex items-center justify-between">
           <button 
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="p-1.5 hover:bg-accent/10 rounded-lg transition-colors"
           >
             <ChevronLeft className="w-4 h-4 text-foreground" />

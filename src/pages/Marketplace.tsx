@@ -235,7 +235,13 @@ const Marketplace = () => {
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-6 py-3 shadow-lg">
         <div className="flex items-center justify-around max-w-md mx-auto">
           <button 
-            onClick={() => navigate("/coming-soon")}
+            onClick={() => navigate("/food-ordering", { state: { skipLanding: true } })}
+            className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Utensils className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={() => navigate("/")}
             className="flex flex-col items-center gap-1 text-primary"
           >
             <div className="w-5 h-5 flex items-center justify-center">
@@ -247,19 +253,7 @@ const Marketplace = () => {
               </div>
             </div>
           </button>
-          <button 
-            onClick={() => navigate("/food-ordering", { state: { skipLanding: true } })}
-            className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <Utensils className="w-5 h-5" />
-          </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
-            <Search className="w-5 h-5" />
-          </button>
-          <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-          </button>
-          <button 
+          <button
             onClick={() => navigate("/account")}
             className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
           >
