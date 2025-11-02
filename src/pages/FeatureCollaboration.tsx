@@ -11,7 +11,7 @@ const FeatureCollaboration = () => {
       <header className="fixed top-0 left-0 w-full z-50 h-16 bg-primary/95 backdrop-blur-sm">
         <div className="w-full px-5 h-full flex items-center justify-between">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-white hover:opacity-80 transition-opacity"
           >
             <ArrowLeft size={20} />

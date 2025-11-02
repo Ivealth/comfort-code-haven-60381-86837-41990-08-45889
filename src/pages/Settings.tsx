@@ -43,7 +43,7 @@ const Settings = () => {
         setProfilePictureUrl(profile.profile_picture_url || '');
       }
     } catch (error: any) {
-      toast.error('Error loading profile');
+      toast.error('Error loading profile', { duration: 500 });
     } finally {
       setLoading(false);
     }
@@ -54,12 +54,12 @@ const Settings = () => {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file');
+      toast.error('Please upload an image file', { duration: 500 });
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('Image must be less than 5MB');
+      toast.error('Image must be less than 5MB', { duration: 500 });
       return;
     }
 
@@ -78,9 +78,9 @@ const Settings = () => {
       };
       reader.readAsDataURL(file);
 
-      toast.success('Image uploaded successfully', { duration: 800 });
+      toast.success('Image uploaded successfully', { duration: 500 });
     } catch (error: any) {
-      toast.error('Error uploading image');
+      toast.error('Error uploading image', { duration: 500 });
       console.error('Upload error:', error);
     } finally {
       setUploading(false);
@@ -89,17 +89,17 @@ const Settings = () => {
 
   const handleSave = async () => {
     if (!username.trim()) {
-      toast.error('Please enter a username');
+      toast.error('Please enter a username', { duration: 500 });
       return;
     }
 
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast.error('Please enter a valid email');
+      toast.error('Please enter a valid email', { duration: 500 });
       return;
     }
 
     if (phoneNumber && !phoneNumber.startsWith('+234')) {
-      toast.error('Phone number must start with +234');
+      toast.error('Phone number must start with +234', { duration: 500 });
       return;
     }
 
@@ -131,17 +131,17 @@ const Settings = () => {
           email: email
         });
         if (authError) throw authError;
-        toast.success('Profile updated! Please check your new email to confirm the change.', { duration: 800 });
+        toast.success('Profile updated! Please check your new email to confirm the change.', { duration: 500 });
       } else {
-        toast.success('Profile updated successfully!', { duration: 800 });
+        toast.success('Profile updated successfully!', { duration: 500 });
       }
 
       navigate('/account');
     } catch (error: any) {
       if (error.message.includes('duplicate key')) {
-        toast.error('Username already taken');
+        toast.error('Username already taken', { duration: 500 });
       } else {
-        toast.error('Error updating profile');
+        toast.error('Error updating profile', { duration: 500 });
       }
     } finally {
       setSaving(false);
@@ -162,7 +162,7 @@ const Settings = () => {
       <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/50 p-4">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
           <button 
-            onClick={() => navigate("/account")}
+            onClick={() => navigate(-1)}
             className="p-2 hover:bg-accent/10 rounded-xl transition-all active:scale-95"
           >
             <ChevronLeft className="w-5 h-5 text-foreground" />
@@ -274,7 +274,7 @@ const Settings = () => {
         {/* Additional Options */}
         <div className="mt-6 bg-card rounded-2xl border border-border overflow-hidden">
           <button
-            onClick={() => toast("Coming soon", { duration: 800 })}
+            onClick={() => toast("Coming soon", { duration: 500 })}
             className="w-full flex items-center justify-between p-4 hover:bg-accent/10 transition-colors border-b border-border"
           >
             <div className="flex items-center gap-3">
@@ -284,7 +284,7 @@ const Settings = () => {
             <ChevronRight className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
-            onClick={() => toast("Coming soon", { duration: 800 })}
+            onClick={() => toast("Coming soon", { duration: 500 })}
             className="w-full flex items-center justify-between p-4 hover:bg-accent/10 transition-colors"
           >
             <div className="flex items-center gap-3">

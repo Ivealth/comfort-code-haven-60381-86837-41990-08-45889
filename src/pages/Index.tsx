@@ -22,7 +22,7 @@ const Index = () => {
   }, [onScroll]);
 
   const handleAffiliateClick = () => {
-    toast("Coming soon", { duration: 1000 });
+    toast("Coming soon", { duration: 500 });
   };
 
   return (
