@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
-        body: ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
+        body: ['Roboto', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
