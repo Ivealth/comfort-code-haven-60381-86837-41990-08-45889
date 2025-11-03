@@ -27,7 +27,7 @@ export const FloatingInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "w-full text-sm font-body px-4 py-3 rounded-xl border bg-background transition-all duration-200",
+          "w-full text-sm font-body px-4 py-3 rounded-xl border-2 bg-background transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
           error ? "border-destructive" : "border-input",
           className
