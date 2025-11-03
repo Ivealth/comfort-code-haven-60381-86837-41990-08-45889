@@ -27,8 +27,8 @@ export const FloatingInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "w-full text-sm px-4 py-3 rounded-xl border bg-background transition-all duration-200",
-          "focus:outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary",
+          "w-full text-sm font-body px-4 py-3 rounded-xl border-2 bg-background transition-all duration-200",
+          "focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
           error ? "border-destructive" : "border-input",
           className
         )}
@@ -38,9 +38,9 @@ export const FloatingInput = ({
       {/* Floating Label with Border Cutout */}
       <label
         className={cn(
-          "absolute left-3 pointer-events-none transition-all duration-200 font-semibold bg-background px-1.5 leading-none",
+          "absolute left-3 pointer-events-none transition-all duration-200 font-medium bg-background px-1",
           isFloating
-            ? "-top-[9px] text-[11px] text-primary"
+            ? "-top-2.5 text-xs text-primary"
             : "top-3 text-sm text-muted-foreground"
         )}
       >
