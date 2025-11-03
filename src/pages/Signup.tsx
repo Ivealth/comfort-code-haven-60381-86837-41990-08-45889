@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { FloatingInput } from "@/components/FloatingInput";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -114,45 +115,40 @@ const Signup = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSignupNext} className="space-y-4 md:space-y-5">
-            <div>
-              <label className="text-sm text-foreground mb-2 block font-medium">Full Name</label>
-              <input
-                value={signupName}
-                onChange={(e) => setSignupName(e.target.value)}
-                placeholder="John Doe"
-                className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              />
-            </div>
+          <form onSubmit={handleSignupNext} className="space-y-5 md:space-y-6">
+            <FloatingInput
+              label="Full Name"
+              reversePlaceholder="John Doe"
+              value={signupName}
+              onChange={(e) => setSignupName(e.target.value)}
+              error={signupError.includes('name')}
+            />
 
-            <div>
-              <label className="text-sm text-foreground mb-2 block font-medium">Email</label>
-              <input
-                value={signupEmail}
-                onChange={(e) => setSignupEmail(e.target.value)}
-                placeholder="you@school.edu"
-                className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              />
-            </div>
+            <FloatingInput
+              label="Email"
+              reversePlaceholder="you@school.edu"
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
+              error={signupError.includes('email')}
+              type="email"
+            />
 
-            <div>
-              <label className="text-sm text-foreground mb-2 block font-medium">Create password</label>
-              <div className="relative">
-                <input
-                  value={signupPassword}
-                  onChange={(e) => setSignupPassword(e.target.value)}
-                  placeholder="At least 6 characters"
-                  type={passwordVisible ? 'text' : 'password'}
-                  className="w-full text-sm font-body px-4 py-3 rounded-xl border border-input bg-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                />
-                <button
-                  type="button"
-                  onClick={() => setPasswordVisible((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground hover:text-foreground"
-                >
-                  {passwordVisible ? 'Hide' : 'Show'}
-                </button>
-              </div>
+            <div className="relative">
+              <FloatingInput
+                label="Create password"
+                reversePlaceholder="At least 6 characters"
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+                error={signupError.includes('Password')}
+                type={passwordVisible ? 'text' : 'password'}
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible((p) => !p)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground hover:text-foreground z-10"
+              >
+                {passwordVisible ? 'Hide' : 'Show'}
+              </button>
             </div>
 
             <div className="flex items-start gap-3">
