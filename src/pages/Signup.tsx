@@ -217,6 +217,10 @@ const Signup = () => {
                   </span>
                 </div>
               </form>
+
+              <p className="text-xs text-muted-foreground text-center mt-6">
+                For further support, you may visit the Help Center or contact our customer service team.
+              </p>
             </>
           )}
 
