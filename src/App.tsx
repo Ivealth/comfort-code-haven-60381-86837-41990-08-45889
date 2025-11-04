@@ -14,7 +14,6 @@ import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
-import Home from "./pages/Home";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +25,6 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/feature/collaboration" element={<FeatureCollaboration />} />

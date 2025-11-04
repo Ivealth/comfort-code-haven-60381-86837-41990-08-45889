@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heart, Star, MapPin, User, Utensils } from "lucide-react";
+import { Menu, Search, Heart, ShoppingCart, Star, Filter, MapPin, User, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import MarketplaceHeader from "@/components/MarketplaceHeader";
 
 const Marketplace = () => {
   const navigate = useNavigate();
@@ -107,9 +107,46 @@ const Marketplace = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <MarketplaceHeader title="Student Marketplace" />
+      {/* Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/40 border-b border-white/10 p-4 shadow-lg">
+        <div className="flex items-center justify-between">
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="p-2 hover:bg-white/10 rounded-xl transition-all duration-300">
+                <Menu className="w-5 h-5 text-foreground" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px]">
+              <SheetHeader>
+                <SheetTitle className="text-lg font-bold">Student Marketplace</SheetTitle>
+              </SheetHeader>
+              <div className="mt-6 space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Buy and sell items with fellow students on campus
+                </p>
+              </div>
+            </SheetContent>
+          </Sheet>
+          <h1 className="text-lg font-bold text-foreground">Student Marketplace</h1>
+          <button className="p-2 hover:bg-white/10 rounded-xl transition-all duration-300">
+            <ShoppingCart className="w-5 h-5 text-foreground" />
+          </button>
+        </div>
+      </header>
 
       <div className="px-4 pt-4">
+        {/* Search Bar */}
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search for items..."
+            className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-background border border-input text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+          <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-primary/10 rounded-lg transition-all duration-300">
+            <Filter className="w-4 h-4 text-primary" />
+          </button>
+        </div>
 
         {/* Categories */}
         <div className="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide">
@@ -204,7 +241,7 @@ const Marketplace = () => {
             <Utensils className="w-5 h-5" />
           </button>
           <button 
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/")}
             className="flex flex-col items-center gap-1 text-primary"
           >
             <div className="w-5 h-5 flex items-center justify-center">
