@@ -10,6 +10,7 @@ import FeatureCollaboration from "./pages/FeatureCollaboration";
 import FoodOrdering from "./pages/FoodOrdering";
 import Restaurants from "./pages/Restaurants";
 import Marketplace from "./pages/Marketplace";
+import Home from "./pages/Home";
 import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 import ComingSoon from "./pages/ComingSoon";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/food-ordering" element={<FoodOrdering />} />
           <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/account" element={<Account />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/coming-soon" element={<ComingSoon />} />

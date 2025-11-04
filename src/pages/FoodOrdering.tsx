@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, Search, Heart, ChevronLeft, Clock, MapPin, Bell, User, Filter, Plus, Minus, ShoppingBag, Flame, X, Award, Tag, TrendingUp, Store, ArrowUpDown } from "lucide-react";
+import { Heart, ChevronLeft, Clock, MapPin, User, Filter, Plus, Minus, Flame, X, Award, Tag, TrendingUp, Store, ArrowUpDown, ShoppingBag, Search, Bell, Menu } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import MarketplaceHeader from "@/components/MarketplaceHeader";
 
 type Screen = "landing" | "listing" | "detail";
 
@@ -404,67 +405,7 @@ const FoodOrdering = () => {
   // Recipe Listing Screen
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header with Glassmorphism */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/40 border-b border-white/10 p-4 shadow-lg">
-        <div className="flex items-center justify-between">
-          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-            <SheetTrigger asChild>
-              <button className="p-2 hover:bg-white/10 rounded-xl transition-all duration-300">
-                <Menu className="w-5 h-5 text-foreground" />
-              </button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[300px]">
-              <SheetHeader>
-                <SheetTitle className="text-lg font-bold">Features & Perks</SheetTitle>
-              </SheetHeader>
-              <div className="mt-6 space-y-4">
-                <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Star className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm text-foreground">Rewards Program</h3>
-                    <p className="text-xs text-muted-foreground">Earn points with every order</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Gift className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm text-foreground">Special Offers</h3>
-                    <p className="text-xs text-muted-foreground">Get exclusive deals and discounts</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Truck className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm text-foreground">Fast Delivery</h3>
-                    <p className="text-xs text-muted-foreground">Quick delivery to your doorstep</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/10 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm text-foreground">Quality Guarantee</h3>
-                    <p className="text-xs text-muted-foreground">100% fresh and quality food</p>
-                  </div>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-primary font-medium">📍 172 Grand St, NY</span>
-          </div>
-          <button className="p-2 hover:bg-white/10 rounded-xl transition-all duration-300">
-            <Bell className="w-5 h-5 text-foreground" />
-          </button>
-        </div>
-      </header>
+      <MarketplaceHeader title="Food Ordering" />
 
       <div className="px-4 pt-4">
         {/* Promotional Banner Carousel */}
@@ -899,7 +840,7 @@ const FoodOrdering = () => {
             <ShoppingBag className="w-5 h-5" />
           </button>
           <button 
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
             className="flex flex-col items-center gap-1 text-primary"
           >
             <div className="w-5 h-5 flex items-center justify-center">
