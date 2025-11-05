@@ -447,11 +447,10 @@ const FoodOrdering = () => {
 
         {/* Search Bar with Filter Icon */}
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search Food, groceries, drink, etc"
-            className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-background border border-input text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="Search for products, brands and categories..."
+            className="w-full pl-4 pr-12 py-2.5 rounded-xl bg-background border border-input text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
           <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
             <SheetTrigger asChild>

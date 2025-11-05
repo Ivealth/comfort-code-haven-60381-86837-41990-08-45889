@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heart, Star, Filter, User, Utensils } from "lucide-react";
+import { Heart, Star, Search, User, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import MarketplaceHeader from "@/components/MarketplaceHeader";
@@ -125,6 +125,18 @@ const Marketplace = () => {
               {cat.name}
             </button>
           ))}
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative mb-4">
+          <input
+            type="text"
+            placeholder="Search for products, brands and categories..."
+            className="w-full pl-4 pr-12 py-2.5 rounded-xl bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+          <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent/20 rounded-lg transition-colors">
+            <Search className="w-5 h-5 text-muted-foreground" />
+          </button>
         </div>
 
         {/* Featured Banner */}

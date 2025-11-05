@@ -10,7 +10,7 @@ const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: Marke
   return (
     <header className="sticky top-0 z-50 bg-background">
       {/* Promotional Banner */}
-      <div className="relative h-16 bg-gradient-to-r from-[#8B1538] via-[#A01B4A] to-[#6B2C3E] overflow-hidden">
+      <div className="relative h-12 bg-gradient-to-r from-[#8B1538] via-[#A01B4A] to-[#6B2C3E] overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-between px-4">
           {/* Left side - Logo/Brand */}
           <div className="flex items-center gap-2">
@@ -64,26 +64,25 @@ const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: Marke
             </SheetContent>
           </Sheet>
           
-          <Store className="w-7 h-7 text-foreground" />
-          
-          <button 
-            onClick={onCartClick}
-            className="p-2 hover:bg-accent/10 rounded-lg transition-colors"
-          >
-            <ShoppingCart className="w-6 h-6 text-foreground" />
-          </button>
+          <div className="flex items-center gap-2">
+            <Store className="w-5 h-5 text-foreground" />
+            <button 
+              onClick={onCartClick}
+              className="p-2 hover:bg-accent/10 rounded-lg transition-colors"
+            >
+              <ShoppingCart className="w-5 h-5 text-foreground" />
+            </button>
+          </div>
         </div>
 
         {/* Search Bar */}
         <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search for products, brands and categories..."
-            className="w-full pl-4 pr-12 py-2.5 rounded-lg bg-accent/10 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="Search Food, groceries, drink, etc"
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-accent/10 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
-          <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent/20 rounded-lg transition-colors">
-            <Search className="w-5 h-5 text-muted-foreground" />
-          </button>
         </div>
       </div>
     </header>
