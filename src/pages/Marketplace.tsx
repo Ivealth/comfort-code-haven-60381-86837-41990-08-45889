@@ -107,26 +107,17 @@ const Marketplace = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <MarketplaceHeader title="Student Marketplace" />
+      <MarketplaceHeader 
+        title="Student Marketplace"
+        categories={categories.map(cat => ({
+          id: cat.id,
+          name: cat.name
+        }))}
+        selectedCategory={selectedCategory}
+        onCategorySelect={setSelectedCategory}
+      />
 
       <div className="px-4 pt-4">
-        {/* Categories */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
-                selectedCategory === cat.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-accent/10 text-foreground hover:bg-accent/20"
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
-
         {/* Search Bar */}
         <button
           onClick={() => navigate("/search")}

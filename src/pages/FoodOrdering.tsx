@@ -405,7 +405,16 @@ const FoodOrdering = () => {
   // Recipe Listing Screen
   return (
     <div className="min-h-screen bg-background pb-20">
-      <MarketplaceHeader title="Food Ordering" />
+      <MarketplaceHeader 
+        title="Food Ordering"
+        categories={categories.map(cat => ({
+          id: cat.id,
+          name: cat.name,
+          icon: cat.icon
+        }))}
+        selectedCategory={selectedCategory}
+        onCategorySelect={handleCategoryClick}
+      />
 
       <div className="px-4 pt-4">
         {/* Promotional Banner Carousel */}
@@ -514,33 +523,6 @@ const FoodOrdering = () => {
       </div>
 
       <main className="pb-4">
-        {/* Category Filters */}
-        <div className="mb-6 px-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-            {categories.map((cat) => {
-              const Icon = cat.icon;
-              const isActive = 
-                (cat.name === "Promotions" && selectedPromotions.length > 0) ||
-                (cat.name === "Food type" && selectedFoodTypes.length > 0) ||
-                (cat.name === "Sort by" && sortOption !== "recommended") ||
-                (cat.name === "Top rated" && showTopRated) ||
-                (cat.name === "Restaurants" && showRestaurants);
-              
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryClick(cat.id)}
-                  className="flex items-center gap-1.5 flex-shrink-0 px-3 py-1.5 rounded-full transition-all bg-[#F5A623] text-black hover:bg-[#E09612]"
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span className="text-sm font-medium">{cat.name}</span>
-                  {isActive && <X className="w-3 h-3" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         {/* Promotions Drawer */}
         <Drawer open={promotionsOpen} onOpenChange={setPromotionsOpen}>
           <DrawerContent className="max-h-[85vh] rounded-t-[40px]">

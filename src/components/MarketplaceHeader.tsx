@@ -1,12 +1,30 @@
 import { Menu, ShoppingCart, Store, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { LucideIcon } from "lucide-react";
+
+interface Category {
+  id: string;
+  name: string;
+  icon?: LucideIcon | string;
+  emoji?: string;
+  color?: string;
+}
 
 interface MarketplaceHeaderProps {
   title?: string;
   onCartClick?: () => void;
+  categories?: Category[];
+  selectedCategory?: string;
+  onCategorySelect?: (categoryId: string) => void;
 }
 
-const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: MarketplaceHeaderProps) => {
+const MarketplaceHeader = ({ 
+  title = "Student Marketplace", 
+  onCartClick,
+  categories = [],
+  selectedCategory,
+  onCategorySelect
+}: MarketplaceHeaderProps) => {
   return (
     <header className="sticky top-0 z-50 bg-background">
       {/* Promotional Banner */}
@@ -57,30 +75,43 @@ const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: Marke
                 <SheetTitle className="text-lg font-bold">{title}</SheetTitle>
               </SheetHeader>
               <div className="mt-6">
-                <h3 className="text-sm font-semibold text-foreground mb-4">Browse by Category</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { name: "Textbooks", icon: "📚", color: "from-blue-500 to-blue-600" },
-                    { name: "Electronics", icon: "💻", color: "from-purple-500 to-purple-600" },
-                    { name: "Furniture", icon: "🪑", color: "from-green-500 to-green-600" },
-                    { name: "Clothing", icon: "👕", color: "from-pink-500 to-pink-600" },
-                    { name: "Food", icon: "🍕", color: "from-orange-500 to-orange-600" },
-                    { name: "Stationery", icon: "✏️", color: "from-yellow-500 to-yellow-600" },
-                  ].map((category, index) => (
-                    <button
-                      key={index}
-                      className="aspect-square bg-card rounded-xl border border-border hover:shadow-lg transition-all overflow-hidden group"
-                    >
-                      <div className={`h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br ${category.color} bg-opacity-10`}>
-                        <span className="text-2xl group-hover:scale-110 transition-transform">
-                          {category.icon}
-                        </span>
-                        <span className="text-xs font-medium text-foreground">
-                          {category.name}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
+                <h3 className="text-sm font-semibold text-foreground mb-4">
+                  {categories.length > 0 ? "Browse by Category" : "Categories"}
+                </h3>
+                <div className="space-y-2">
+                  {categories.length > 0 ? (
+                    categories.map((category) => {
+                      const IconComponent = category.icon && typeof category.icon !== 'string' ? category.icon : null;
+                      const isSelected = selectedCategory === category.id;
+                      
+                      return (
+                        <button
+                          key={category.id}
+                          onClick={() => onCategorySelect?.(category.id)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                            isSelected 
+                              ? "bg-primary text-primary-foreground" 
+                              : "bg-accent/10 hover:bg-accent/20 text-foreground"
+                          }`}
+                        >
+                          {category.emoji && (
+                            <span className="text-xl">{category.emoji}</span>
+                          )}
+                          {IconComponent && (
+                            <IconComponent className="w-5 h-5" />
+                          )}
+                          {typeof category.icon === 'string' && (
+                            <span className="text-xl">{category.icon}</span>
+                          )}
+                          <span className="text-sm font-medium">{category.name}</span>
+                        </button>
+                      );
+                    })
+                  ) : (
+                    <p className="text-sm text-muted-foreground px-4">
+                      No categories available
+                    </p>
+                  )}
                 </div>
               </div>
             </SheetContent>
