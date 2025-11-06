@@ -76,14 +76,15 @@ const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: Marke
         </div>
 
         {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="Search Food, groceries, drink, etc"
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-accent/10 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-        </div>
+        <button
+          onClick={() => window.location.href = '/search'}
+          className="w-full relative"
+        >
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          <div className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-accent/10 border border-border text-sm text-muted-foreground text-left">
+            Search Food, groceries, drink, etc
+          </div>
+        </button>
       </div>
     </header>
   );

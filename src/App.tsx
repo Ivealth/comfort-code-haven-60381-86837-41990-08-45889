@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 import ComingSoon from "./pages/ComingSoon";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/account" element={<Account />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/search" element={<Search />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
