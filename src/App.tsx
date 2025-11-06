@@ -15,6 +15,7 @@ import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 import ComingSoon from "./pages/ComingSoon";
 import Search from "./pages/Search";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,6 +1,7 @@
 import { Menu, ShoppingCart, Store, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { LucideIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Category {
   id: string;
@@ -25,6 +26,15 @@ const MarketplaceHeader = ({
   selectedCategory,
   onCategorySelect
 }: MarketplaceHeaderProps) => {
+  const navigate = useNavigate();
+
+  const handleCartClick = () => {
+    if (onCartClick) {
+      onCartClick();
+    } else {
+      navigate("/cart");
+    }
+  };
   return (
     <header className="sticky top-0 z-50 bg-background">
       {/* Promotional Banner */}
@@ -120,7 +130,7 @@ const MarketplaceHeader = ({
           <div className="flex items-center gap-2">
             <Store className="w-5 h-5 text-foreground" />
             <button 
-              onClick={onCartClick}
+              onClick={handleCartClick}
               className="p-2 hover:bg-accent/10 rounded-lg transition-colors"
             >
               <ShoppingCart className="w-5 h-5 text-foreground" />
