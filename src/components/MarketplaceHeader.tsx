@@ -56,10 +56,32 @@ const MarketplaceHeader = ({ title = "Student Marketplace", onCartClick }: Marke
               <SheetHeader>
                 <SheetTitle className="text-lg font-bold">{title}</SheetTitle>
               </SheetHeader>
-              <div className="mt-6 space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Browse and shop from a wide variety of products
-                </p>
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold text-foreground mb-4">Browse by Category</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { name: "Textbooks", icon: "📚", color: "from-blue-500 to-blue-600" },
+                    { name: "Electronics", icon: "💻", color: "from-purple-500 to-purple-600" },
+                    { name: "Furniture", icon: "🪑", color: "from-green-500 to-green-600" },
+                    { name: "Clothing", icon: "👕", color: "from-pink-500 to-pink-600" },
+                    { name: "Food", icon: "🍕", color: "from-orange-500 to-orange-600" },
+                    { name: "Stationery", icon: "✏️", color: "from-yellow-500 to-yellow-600" },
+                  ].map((category, index) => (
+                    <button
+                      key={index}
+                      className="aspect-square bg-card rounded-xl border border-border hover:shadow-lg transition-all overflow-hidden group"
+                    >
+                      <div className={`h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br ${category.color} bg-opacity-10`}>
+                        <span className="text-2xl group-hover:scale-110 transition-transform">
+                          {category.icon}
+                        </span>
+                        <span className="text-xs font-medium text-foreground">
+                          {category.name}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
