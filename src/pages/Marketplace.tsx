@@ -118,18 +118,6 @@ const Marketplace = () => {
       />
 
       <div className="px-4 pt-4">
-        {/* Search Bar */}
-        <button
-          onClick={() => navigate("/search")}
-          className="w-full relative mb-4"
-        >
-          <div className="w-full pl-4 pr-12 py-2.5 rounded-xl bg-background border border-border text-sm text-muted-foreground text-left">
-            Search for products, brands and categories...
-          </div>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 pointer-events-none">
-            <Search className="w-5 h-5 text-muted-foreground" />
-          </div>
-        </button>
 
         {/* Featured Banner */}
         <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-6 mb-6">
